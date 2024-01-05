@@ -5,6 +5,7 @@ declare global {
   namespace App {
     interface Locals {
       pocketBase: PocketBase;
+      pocketBaseAdmin: PocketBase;
     }
     // interface Error {}
     // interface PageData {}

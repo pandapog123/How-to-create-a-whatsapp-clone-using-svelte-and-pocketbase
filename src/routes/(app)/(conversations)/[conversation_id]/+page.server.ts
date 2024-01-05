@@ -51,10 +51,13 @@ export const actions = {
         conversation.messages = [message, ...conversation.messages];
       }
 
-      await conversationsCollection.update(conversation.id, {
-        messages: conversation.messages,
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          messages: conversation.messages,
+        });
     } catch (error) {
+      console.log(error);
       if (error instanceof Error) {
         return { error: error.message };
       }
@@ -75,8 +78,6 @@ export const actions = {
 
     const photo = formData.get("photo");
 
-    console.log(photo);
-
     try {
       if (!(photo instanceof File)) {
         throw new Error(`Invalid message`);
@@ -96,8 +97,9 @@ export const actions = {
         throw new Error(`Conversation not found`);
       }
 
-      const result: Conversation & RecordModel =
-        await conversationsCollection.update(conversation.id, {
+      const result: Conversation & RecordModel = await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
           message_photos: photo,
         });
 
@@ -122,10 +124,13 @@ export const actions = {
         conversation.messages = [message, ...conversation.messages];
       }
 
-      await conversationsCollection.update(conversation.id, {
-        messages: conversation.messages,
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          messages: conversation.messages,
+        });
     } catch (error) {
+      console.log(error);
       if (error instanceof Error) {
         return { error: error.message };
       }
@@ -158,14 +163,18 @@ export const actions = {
       );
 
       if (members.length < 2) {
-        await conversationsCollection.delete(conversation.id);
+        await locals.pocketBaseAdmin
+          .collection("conversations")
+          .delete(conversation.id);
 
         return;
       }
 
-      await conversationsCollection.update(conversation.id, {
-        members,
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          members,
+        });
     } catch (error) {
       if (error instanceof Error) {
         return { error: error.message };
@@ -200,7 +209,9 @@ export const actions = {
         throw new Error(`User is not admin`);
       }
 
-      await conversationsCollection.delete(conversation.id);
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .delete(conversation.id);
     } catch (error) {
       if (error instanceof Error) {
         return { error: error.message };
@@ -251,9 +262,11 @@ export const actions = {
         throw new Error(`User is not admin`);
       }
 
-      await conversationsCollection.update(conversation.id, {
-        name,
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          name,
+        });
     } catch (error) {
       if (error instanceof Error) {
         return fail(500, { error: error.message });
@@ -302,9 +315,11 @@ export const actions = {
         throw new Error(`User is not admin`);
       }
 
-      await conversationsCollection.update(conversation.id, {
-        photo,
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          photo,
+        });
     } catch (error) {
       if (error instanceof Error) {
         return fail(500, { error: error.message });
@@ -376,14 +391,18 @@ export const actions = {
       });
 
       if (isImage) {
-        await conversationsCollection.update(conversation.id, {
-          messages,
-          "message_photos-": [imageURL],
-        });
+        await locals.pocketBaseAdmin
+          .collection("conversations")
+          .update(conversation.id, {
+            messages,
+            "message_photos-": [imageURL],
+          });
       } else {
-        await conversationsCollection.update(conversation.id, {
-          messages,
-        });
+        await locals.pocketBaseAdmin
+          .collection("conversations")
+          .update(conversation.id, {
+            messages,
+          });
       }
     } catch (error) {
       console.log(error);
@@ -437,16 +456,19 @@ export const actions = {
       let members = conversation.members.filter((member) => member !== userID);
 
       if (members.length === 1) {
-        await conversationsCollection.delete(conversation.id);
+        await locals.pocketBaseAdmin
+          .collection("conversations")
+          .delete(conversation.id);
 
         redirectHome = true;
       } else {
-        await conversationsCollection.update(conversation.id, {
-          members,
-        });
+        await locals.pocketBaseAdmin
+          .collection("conversations")
+          .update(conversation.id, {
+            members,
+          });
       }
     } catch (error) {
-      console.log(error);
       if (error instanceof Error) {
         return fail(500, { error: error.message });
       }
@@ -533,9 +555,11 @@ export const actions = {
         );
       }
 
-      await conversationsCollection.update(conversation.id, {
-        members: [...conversation.members, ...validatedMembers],
-      });
+      await locals.pocketBaseAdmin
+        .collection("conversations")
+        .update(conversation.id, {
+          members: [...conversation.members, ...validatedMembers],
+        });
     } catch (error) {
       console.log(error);
       if (error instanceof Error) {
