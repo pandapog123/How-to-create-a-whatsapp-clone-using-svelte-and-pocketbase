@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+:root {
+  --primary-color: rgb(35, 35, 35);
+  --secondary-color: rgb(44, 43, 43);
+  --tertiary-color: rgb(65, 65, 65);
+  --accent-color: rgb(8, 114, 244);
+  --delete-color: rgb(244, 8, 8);
+  --primary-text-color: white;
+  --secondary-text-color: rgb(187, 187, 187);
+}
+
+body {
+  color: var(--primary-text-color);
+  background-color: var(--primary-color);
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
